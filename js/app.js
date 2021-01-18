@@ -6,17 +6,16 @@ var divimages = document.getElementById('imagediv');
 var maxvotes = 25;
 var userClickCounter = 0;
 var leftImageIndex;
-<<<<<<< HEAD
 var rightImageIndex;
 var middleImageIndex;
 var showResultButton = document.getElementById('FinalResultButton');
 var roundsForm = document.getElementById('maxrounds');
-var imageNames=[];
+// var imageNames=[];
 
+var imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ];
+// function removeDuplicate (data){
 
 // var buttonElement = document.getElementById('Results-list');
-=======
->>>>>>> b5717c513a44d9c5761b01a66152e3d7e1523eb1
 
 
 
@@ -50,16 +49,17 @@ var image18 = new Products('water-can', '../assets/img/water-can.jpg');
 var image19 = new Products('wine-glass', '../assets/img/wine-glass.jpg');
 var image20 = new Products('bubblegum', '../assets/img/bubblegum.jpg');
 
-
+function generateRandomIndex() {
+    return Math.floor(Math.random() * (Products.prototype.allProducts.length));
+}
 
 divimages.addEventListener('click', handelUserClick);
 
+showResultButton.addEventListener('click', showResults);
+roundsForm.addEventListener('submit', setMaxRounds);
 
-<<<<<<< HEAD
 function renderThreeRandomImages() {
 
-=======
->>>>>>> b5717c513a44d9c5761b01a66152e3d7e1523eb1
     leftImageIndex = generateRandomIndex();
     //  middleImageIndex = generateRandomIndex();
     //  rightImageIndex = generateRandomIndex();
@@ -76,17 +76,17 @@ function renderThreeRandomImages() {
     Products.prototype.allProducts[middleImageIndex].showingTimes++;
     rightImageElement.src = Products.prototype.allProducts[rightImageIndex].source;
     Products.prototype.allProducts[rightImageIndex].showingTimes++;
-<<<<<<< HEAD
-    if (!$.inArray(value, imageNames)) imageNames.push(value);
+    // if (!$.inArray(value, imageNames)) imageNames.push(value);
 }
 // removeDuplicate();
-=======
->>>>>>> b5717c513a44d9c5761b01a66152e3d7e1523eb1
 
 
 renderThreeRandomImages();
 
-
+imageNames.sort(randomize);
+function randomize(){
+    return 0.5 - Math.random();
+}
 
 
 function handelUserClick(event) {
@@ -99,7 +99,7 @@ function handelUserClick(event) {
             // Products.prototype.allProducts[leftImageIndex].showingTimes++;
             userClickCounter++;
             Products.prototype.allProducts[leftImageIndex].votes++;
-
+            // removeDuplicate();
             renderThreeRandomImages();
             console.log(event.target.id);
 
@@ -107,7 +107,7 @@ function handelUserClick(event) {
         else if (event.target.id === 'middle-image') {
             userClickCounter++;
             Products.prototype.allProducts[middleImageIndex].votes++;
-
+            // removeDuplicate();
             renderThreeRandomImages();
             // Products.prototype.allProducts[middleImageIndex].showingTimes++;
 
@@ -115,7 +115,7 @@ function handelUserClick(event) {
         } else if (event.target.id === 'right-image') {
             userClickCounter++;
             Products.prototype.allProducts[rightImageIndex].votes++;
-
+            // removeDuplicate();
             renderThreeRandomImages();
             // Products.prototype.allProducts[rightImageIndex].showingTimes++;
             console.log(event.target.id);
@@ -128,11 +128,8 @@ function handelUserClick(event) {
 
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
-<<<<<<< HEAD
         showResultButton.disabled = false;
         renderChart();
-=======
->>>>>>> b5717c513a44d9c5761b01a66152e3d7e1523eb1
 
     }
 
@@ -141,7 +138,6 @@ function handelUserClick(event) {
 }
 
 
-<<<<<<< HEAD
 function setMaxRounds(event) {
     event.preventDefault();
     maxvotes = parseInt(event.target.rounds.value);
@@ -220,9 +216,32 @@ function renderChart() {
 
 
 
-=======
->>>>>>> b5717c513a44d9c5761b01a66152e3d7e1523eb1
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// roundsForm.addEventListener('submit',submitter);
+
+// function submitter (event){
+//     event.preventDefault();
+//     //  maxvotes = parseInt(event.target.maxvotes.value)
+
+//     maxvotes = parseInt(event.target.rounds.value)
+
+// }
 
 
 
@@ -245,7 +264,6 @@ function showResults(event) {
         resultlist.appendChild(votesResults);
 
     }
-<<<<<<< HEAD
 }
 
 
@@ -284,5 +302,3 @@ function showResults(event) {
 //     // options: {}
 // });
 
-=======
->>>>>>> b5717c513a44d9c5761b01a66152e3d7e1523eb1
