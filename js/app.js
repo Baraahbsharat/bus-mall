@@ -10,7 +10,7 @@ var rightImageIndex;
 var middleImageIndex;
 var showResultButton = document.getElementById('FinalResultButton');
 var roundsForm = document.getElementById('maxrounds');
-
+var imageNames=[];
 
 
 // var buttonElement = document.getElementById('Results-list');
@@ -57,7 +57,7 @@ showResultButton.addEventListener('click', showResults);
 roundsForm.addEventListener('submit', setMaxRounds);
 
 function renderThreeRandomImages() {
-    
+
     leftImageIndex = generateRandomIndex();
     //  middleImageIndex = generateRandomIndex();
     //  rightImageIndex = generateRandomIndex();
@@ -74,9 +74,10 @@ function renderThreeRandomImages() {
     Products.prototype.allProducts[middleImageIndex].showingTimes++;
     rightImageElement.src = Products.prototype.allProducts[rightImageIndex].source;
     Products.prototype.allProducts[rightImageIndex].showingTimes++;
-
-    // removeDuplicate();
+    if (!$.inArray(value, imageNames)) imageNames.push(value);
 }
+// removeDuplicate();
+
 
 renderThreeRandomImages();
 
@@ -115,14 +116,15 @@ function handelUserClick(event) {
             console.log(event.target.id);
         }
     } else {
-     
+
 
         // showResults();
         //  resultlist.appendChild(votesResults);
 
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
-        showResultButton.disabled = false;   
+        showResultButton.disabled = false;
+        renderChart();
 
     }
 
@@ -131,10 +133,71 @@ function handelUserClick(event) {
 }
 
 
-function setMaxRounds (event){
+function setMaxRounds(event) {
     event.preventDefault();
-   maxvotes =  parseInt(event.target.rounds.value);
+    maxvotes = parseInt(event.target.rounds.value);
 }
+
+function imagetNameArray(){
+    var imges = [];
+    for (var i = 0; i < allProducts.length; i++){
+        imges[i] = allProducts.name;
+    }
+    //  imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum"];
+   return imges;
+}
+
+function numberOfViews(){
+    var imges = [];
+    for (var i = 0; i < allProducts.length; i++){
+        imges[i] = allProducts.showingTimes;
+    }
+   return imges;
+}
+function numberOfVotes(){
+    var imges = [];
+    for (var i = 0; i < allProducts.length; i++){
+        imges[i] = allProducts.votes;
+    }
+   return imges;
+}
+
+function renderChart() {
+    var ctx = document.getElementById('barChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: imagetNameArray(),
+            datasets: [{
+                label: 'number of Views',
+                data: numberOfViews(),
+                backgroundColor: getRandomColor(),
+            },
+            {
+                label: '# of votes',
+                data: numberOfVotes(),
+                backgroundColor: getRandomColor(),
+                borderWidth: 1,
+            },
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
+
+
+
+
 
 
 
@@ -184,7 +247,7 @@ function setMaxRounds (event){
 var resultlist = document.getElementById('Results-list');
 
 function showResults(event) {
-  event.preventDefault();
+    event.preventDefault();
 
     var votesResults;
 
@@ -194,15 +257,26 @@ function showResults(event) {
 
 
         resultlist.appendChild(votesResults);
-        
+
     }
 }
+
+
+// var usedImage = {};
+// var usedImageCount = 0;
+// function displayimage(){
+//     var num = Math.floor(Math.random() * (imageName.length));
+//     if (!usedImage[num]){
+//         document.
+//     }
+// }
+
 // var imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ];
 // function removeDuplicate (data){
-    
+
 //     preventDefault();
 //     return data.filter((value, index) => data.indexOf(value) === index);
-    
+
 // }
 // var ctx = document.getElementById('barChart').getContext('2d');
 // var chart = new Chart(ctx, {
@@ -211,7 +285,7 @@ function showResults(event) {
 //     // The data for our dataset
 //     data: {
 //         imageNames:["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ]; 
-         
+
 //             backgroundColor: 'rgb(255, 99, 132)',
 //             borderColor: 'rgb(255, 99, 132)',
 //             data: votes 
@@ -222,3 +296,4 @@ function showResults(event) {
 //     // Configuration options go here
 //     // options: {}
 // });
+
