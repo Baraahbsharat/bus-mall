@@ -6,11 +6,6 @@ var divimages = document.getElementById('imagediv');
 var maxvotes = 25;
 var userClickCounter = 0;
 var leftImageIndex;
-var middleImageIndex;
-var showResultButton = document.getElementById('FinalResultButton');
-
-var rightImageIndex;
-// var buttonElement = document.getElementById('Results-list');
 
 
 
@@ -45,22 +40,10 @@ var image19 = new Products('wine-glass', '../assets/img/wine-glass.jpg');
 var image20 = new Products('bubblegum', '../assets/img/bubblegum.jpg');
 
 
-renderThreeRandomImages();
-// handelUserClick();
-// renderThreeRandomImages();
 
 divimages.addEventListener('click', handelUserClick);
 
-showResultButton.addEventListener('click', showResults);
 
-
-
-
-
-
-
-
-function renderThreeRandomImages() {
     leftImageIndex = generateRandomIndex();
     //  middleImageIndex = generateRandomIndex();
     //  rightImageIndex = generateRandomIndex();
@@ -77,9 +60,10 @@ function renderThreeRandomImages() {
     Products.prototype.allProducts[middleImageIndex].showingTimes++;
     rightImageElement.src = Products.prototype.allProducts[rightImageIndex].source;
     Products.prototype.allProducts[rightImageIndex].showingTimes++;
-}
+
 
 renderThreeRandomImages();
+
 
 
 
@@ -93,6 +77,7 @@ function handelUserClick(event) {
             // Products.prototype.allProducts[leftImageIndex].showingTimes++;
             userClickCounter++;
             Products.prototype.allProducts[leftImageIndex].votes++;
+
             renderThreeRandomImages();
             console.log(event.target.id);
 
@@ -100,6 +85,7 @@ function handelUserClick(event) {
         else if (event.target.id === 'middle-image') {
             userClickCounter++;
             Products.prototype.allProducts[middleImageIndex].votes++;
+
             renderThreeRandomImages();
             // Products.prototype.allProducts[middleImageIndex].showingTimes++;
 
@@ -107,6 +93,7 @@ function handelUserClick(event) {
         } else if (event.target.id === 'right-image') {
             userClickCounter++;
             Products.prototype.allProducts[rightImageIndex].votes++;
+
             renderThreeRandomImages();
             // Products.prototype.allProducts[rightImageIndex].showingTimes++;
             console.log(event.target.id);
@@ -119,7 +106,7 @@ function handelUserClick(event) {
 
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
-             
+
     }
 
 
@@ -128,24 +115,12 @@ function handelUserClick(event) {
 
 
 
-var roundsForm = document.getElementById('roundsForm');
-roundsForm.addEventListener('submit',submitter);
-
-function submitter (event){
-    event.preventDefault();
-    //  maxvotes = parseInt(event.target.maxvotes.value)
-
-    maxvotes = parseInt(event.target.rounds.value)
-
-}
 
 
 
 
 
-function generateRandomIndex() {
-    return Math.floor(Math.random() * (Products.prototype.allProducts.length));
-}
+
 
 var resultlist = document.getElementById('Results-list');
 
@@ -162,4 +137,3 @@ function showResults(event) {
         resultlist.appendChild(votesResults);
         
     }
-}
