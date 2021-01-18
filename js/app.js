@@ -6,14 +6,6 @@ var divimages = document.getElementById('imagediv');
 var maxvotes = 25;
 var userClickCounter = 0;
 var leftImageIndex;
-var rightImageIndex;
-var middleImageIndex;
-var showResultButton = document.getElementById('FinalResultButton');
-var roundsForm = document.getElementById('maxrounds');
-
-
-
-// var buttonElement = document.getElementById('Results-list');
 
 
 
@@ -47,17 +39,11 @@ var image18 = new Products('water-can', '../assets/img/water-can.jpg');
 var image19 = new Products('wine-glass', '../assets/img/wine-glass.jpg');
 var image20 = new Products('bubblegum', '../assets/img/bubblegum.jpg');
 
-function generateRandomIndex() {
-    return Math.floor(Math.random() * (Products.prototype.allProducts.length));
-}
+
 
 divimages.addEventListener('click', handelUserClick);
 
-showResultButton.addEventListener('click', showResults);
-roundsForm.addEventListener('submit', setMaxRounds);
 
-function renderThreeRandomImages() {
-    
     leftImageIndex = generateRandomIndex();
     //  middleImageIndex = generateRandomIndex();
     //  rightImageIndex = generateRandomIndex();
@@ -75,8 +61,6 @@ function renderThreeRandomImages() {
     rightImageElement.src = Products.prototype.allProducts[rightImageIndex].source;
     Products.prototype.allProducts[rightImageIndex].showingTimes++;
 
-    // removeDuplicate();
-}
 
 renderThreeRandomImages();
 
@@ -93,7 +77,7 @@ function handelUserClick(event) {
             // Products.prototype.allProducts[leftImageIndex].showingTimes++;
             userClickCounter++;
             Products.prototype.allProducts[leftImageIndex].votes++;
-            // removeDuplicate();
+
             renderThreeRandomImages();
             console.log(event.target.id);
 
@@ -101,7 +85,7 @@ function handelUserClick(event) {
         else if (event.target.id === 'middle-image') {
             userClickCounter++;
             Products.prototype.allProducts[middleImageIndex].votes++;
-            // removeDuplicate();
+
             renderThreeRandomImages();
             // Products.prototype.allProducts[middleImageIndex].showingTimes++;
 
@@ -109,20 +93,19 @@ function handelUserClick(event) {
         } else if (event.target.id === 'right-image') {
             userClickCounter++;
             Products.prototype.allProducts[rightImageIndex].votes++;
-            // removeDuplicate();
+
             renderThreeRandomImages();
             // Products.prototype.allProducts[rightImageIndex].showingTimes++;
             console.log(event.target.id);
         }
     } else {
-     
+
 
         // showResults();
         //  resultlist.appendChild(votesResults);
 
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
-        showResultButton.disabled = false;   
 
     }
 
@@ -131,49 +114,7 @@ function handelUserClick(event) {
 }
 
 
-function setMaxRounds (event){
-    event.preventDefault();
-   maxvotes =  parseInt(event.target.rounds.value);
-}
 
-
-
-
-
-// renderThreeRandomImages();
-// handelUserClick();
-// renderThreeRandomImages();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// roundsForm.addEventListener('submit',submitter);
-
-// function submitter (event){
-//     event.preventDefault();
-//     //  maxvotes = parseInt(event.target.maxvotes.value)
-
-//     maxvotes = parseInt(event.target.rounds.value)
-
-// }
 
 
 
@@ -196,29 +137,3 @@ function showResults(event) {
         resultlist.appendChild(votesResults);
         
     }
-}
-// var imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ];
-// function removeDuplicate (data){
-    
-//     preventDefault();
-//     return data.filter((value, index) => data.indexOf(value) === index);
-    
-// }
-// var ctx = document.getElementById('barChart').getContext('2d');
-// var chart = new Chart(ctx, {
-//     type: 'bar',
-
-//     // The data for our dataset
-//     data: {
-//         imageNames:["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ]; 
-         
-//             backgroundColor: 'rgb(255, 99, 132)',
-//             borderColor: 'rgb(255, 99, 132)',
-//             data: votes 
-//             data: showingTimes
-//         }
-//     },
-
-//     // Configuration options go here
-//     // options: {}
-// });
