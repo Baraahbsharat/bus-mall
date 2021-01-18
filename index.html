@@ -13,19 +13,21 @@
             You will see images for three of our products, 
             please choose which of them you prefer to purchase 
         </p>
-          <div id="image-div">
+        <form action="submit" id="roundsForm">
+           
+           <input type="number" id="rounds" name="rounds">
+
+            <label for="rounds"> Choose the number of rounds</label>
+            <input type="submit" value="set rounds">
+          <div id="imagediv">
          <img  id="left-image" src="" alt="">
          <img  id="middle-image" src="" alt="">
          <img  id="right-image"src="" alt="">
         </div>
         
-        <ul id="Results-list">
-            <button> View Results </button>
-        </ul>
-     
-       
-   
-
+        <ul id="Results-list"></ul>
+            <!-- <input type="submit"  name="Final-Result"> -->
+             <button id="FinalResultButton"> Click to show result</button>
         </main>
 
         <footer>
