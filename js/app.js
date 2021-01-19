@@ -1,4 +1,5 @@
 'use strict'
+
 var leftImageElement = document.getElementById('left-image');
 var middleImageElement = document.getElementById('middle-image');
 var rightImageElement = document.getElementById('right-image');
@@ -146,7 +147,7 @@ function handelUserClick(event) {
    
     }
 
-
+    storeProducts();
 
 }
 
@@ -160,6 +161,7 @@ function setMaxRounds(event) {
 function showfinalResult() {
     showResults();
     renderChart();
+    // storeProducts();
 }
 function renderChart() {
     var votesArray = [];
@@ -187,11 +189,31 @@ function renderChart() {
     })
 }
 
+// function renderAllProductArray(){
+
+// }
+
+function storeProducts (){
+    var myProducts = JSON.stringify(Products.prototype.allProducts );
+    localStorage.setItem('myProducts', myProducts);
+    }
+    function getData(){
+    var list = localStorage.getItem('myProducts');
+    // var jlist = JSON.parse(list);
+    if (list ){
+        Products.prototype.allProducts = JSON.parse(list);
+        // renderThreeRandomImages(); 
+        // showfinalResult();
+        renderChart();
+         }
+   
+    }
+    getData();
+    
 
 
 
-
-
+   
 
 
 
