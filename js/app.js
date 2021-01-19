@@ -158,8 +158,8 @@ function handelUserClick(event) {
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
         showResultButton.disabled = false;
-        // renderChart();
-
+        renderChart();
+        // showfinalResult();
     }
 
 
@@ -195,7 +195,10 @@ function setMaxRounds(event) {
 //     }
 //    return imges;
 // }
-
+function showfinalResult() {
+    showResults();
+    renderChart();
+}
 function renderChart() {
     var votesArray = [];
     var timeshowingArray = [];
@@ -280,10 +283,7 @@ function renderChart() {
 
 
 
-function showfinalResult() {
-    showResults();
-    renderChart();
-}
+
 
 
 var resultlist = document.getElementById('Results-list');
