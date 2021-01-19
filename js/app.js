@@ -8,11 +8,14 @@ var userClickCounter = 0;
 var leftImageIndex;
 var rightImageIndex;
 var middleImageIndex;
+var previousLeftImageIndex = -1;
+var previousRightImageIndex = -1;
+var previousCenterImageIndex = -1;
 var showResultButton = document.getElementById('FinalResultButton');
 var roundsForm = document.getElementById('maxrounds');
-// var imageNames=[];
+var imageNames = [];
 
-var imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ];
+// var imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ];
 // function removeDuplicate (data){
 
 // var buttonElement = document.getElementById('Results-list');
@@ -25,14 +28,16 @@ function Products(name, source) {
     this.showingTimes = 0;
     this.votes = 0;
     Products.prototype.allProducts.push(this);
+    imageNames.push(name);
 }
 
+
 Products.prototype.allProducts = [];
-var image1 = new Products('bag', '../assets/img/bag.jpg');
-var image2 = new Products('banana', '../assets/img/banana.jpg');
-var image3 = new Products('bathroom', '../assets/img/bathroom.jpg');
-var image4 = new Products('boots', '../assets/img/boots.jpg');
-var image5 = new Products('breakfast', '../assets/img/breakfast.jpg');
+var image1 = new Products('bag', 'assets/img/bag.jpg');
+var image2 = new Products('banana', 'assets/img/banana.jpg');
+var image3 = new Products('bathroom', 'assets/img/bathroom.jpg');
+var image4 = new Products('boots', 'assets/img/boots.jpg');
+var image5 = new Products('breakfast', 'assets/img/breakfast.jpg');
 var image6 = new Products('chair', '../assets/img/chair.jpg');
 var image7 = new Products('cthulhu', '../assets/img/cthulhu.jpg');
 var image8 = new Products('dog-duck', '../assets/img/dog-duck.jpg');
@@ -49,6 +54,7 @@ var image18 = new Products('water-can', '../assets/img/water-can.jpg');
 var image19 = new Products('wine-glass', '../assets/img/wine-glass.jpg');
 var image20 = new Products('bubblegum', '../assets/img/bubblegum.jpg');
 
+var imageNames;
 function generateRandomIndex() {
     return Math.floor(Math.random() * (Products.prototype.allProducts.length));
 }
@@ -58,50 +64,73 @@ divimages.addEventListener('click', handelUserClick);
 showResultButton.addEventListener('click', showResults);
 roundsForm.addEventListener('submit', setMaxRounds);
 
+var forbiddenImagesIndex = [];
 function renderThreeRandomImages() {
+    forbiddenImagesIndex = [previousCenterImageIndex, previousLeftImageIndex, previousRightImageIndex];
 
-    leftImageIndex = generateRandomIndex();
+    do {
+        leftImageIndex = generateRandomIndex();
+    }
     //  middleImageIndex = generateRandomIndex();
     //  rightImageIndex = generateRandomIndex();
-
+    while (forbiddenImagesIndex.includes(leftImageIndex));
+    previousLeftImageIndex = leftImageIndex;
+    forbiddenImagesIndex.push(leftImageIndex);
 
     do {
         rightImageIndex = generateRandomIndex();
+
+    }
+    while (forbiddenImagesIndex.includes(rightImageIndex));
+    previousRightImageIndex = rightImageIndex;
+    forbiddenImagesIndex.push(rightImageIndex);
+
+
+    do {
         middleImageIndex = generateRandomIndex();
-        //  leftImageIndex = generateRandomIndex();
-    } while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex);
+
+    } while (forbiddenImagesIndex.includes(middleImageIndex));
+    previousCenterImageIndex = middleImageIndex;
+    // forbiddenImagesIndex.push(middleImageIndex);
+
+    //  leftImageIndex = generateRandomIndex();
+    // } while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex);
+    console.log("left img", Products.prototype.allProducts[leftImageIndex]);
     leftImageElement.src = Products.prototype.allProducts[leftImageIndex].source;
+
     Products.prototype.allProducts[leftImageIndex].showingTimes++;
     middleImageElement.src = Products.prototype.allProducts[middleImageIndex].source;
     Products.prototype.allProducts[middleImageIndex].showingTimes++;
     rightImageElement.src = Products.prototype.allProducts[rightImageIndex].source;
     Products.prototype.allProducts[rightImageIndex].showingTimes++;
-    // if (!$.inArray(value, imageNames)) imageNames.push(value);
 }
+// if (!$.inArray(value, imageNames)) imageNames.push(value);
+// }
 // removeDuplicate();
 
 
 renderThreeRandomImages();
 
-imageNames.sort(randomize);
-function randomize(){
-    return 0.5 - Math.random();
-}
+// imageNames.sort(randomize);
+// function randomize(){
+//     return 0.5 - Math.random();
+// }
 
 
 function handelUserClick(event) {
 
 
     if (userClickCounter < maxvotes) {
-        console.log('click');
-        console.log(event.target.id);
+        // console.log('click');
+        // console.log(event.target.id);
         if (event.target.id === 'left-image') {
             // Products.prototype.allProducts[leftImageIndex].showingTimes++;
             userClickCounter++;
+            console.log('vote property',  Products.prototype.allProducts[leftImageIndex] )
             Products.prototype.allProducts[leftImageIndex].votes++;
             // removeDuplicate();
             renderThreeRandomImages();
-            console.log(event.target.id);
+            // console.log(event.target.id);
 
         }
         else if (event.target.id === 'middle-image') {
@@ -129,7 +158,7 @@ function handelUserClick(event) {
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
         showResultButton.disabled = false;
-        renderChart();
+        // renderChart();
 
     }
 
@@ -143,60 +172,65 @@ function setMaxRounds(event) {
     maxvotes = parseInt(event.target.rounds.value);
 }
 
-function imagetNameArray(){
-    var imges = [];
-    for (var i = 0; i < allProducts.length; i++){
-        imges[i] = allProducts.name;
-    }
-    //  imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum"];
-   return imges;
-}
+// function imagetNameArray(){
+//     var imges = [];
+//     for (var i = 0; i < allProducts.length; i++){
+//         imges[i] = allProducts.name;
+//     }
+//     //  imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum"];
+//    return imges;
+// }
 
-function numberOfViews(){
-    var imges = [];
-    for (var i = 0; i < allProducts.length; i++){
-        imges[i] = allProducts.showingTimes;
-    }
-   return imges;
-}
-function numberOfVotes(){
-    var imges = [];
-    for (var i = 0; i < allProducts.length; i++){
-        imges[i] = allProducts.votes;
-    }
-   return imges;
-}
+// function numberOfViews(){
+//     var imges = [];
+//     for (var i = 0; i < allProducts.length; i++){
+//         imges[i] = allProducts.showingTimes;
+//     }
+//    return imges;
+// }
+// function numberOfVotes(){
+//     var imges = [];
+//     for (var i = 0; i < allProducts.length; i++){
+//         imges[i] = allProducts.votes;
+//     }
+//    return imges;
+// }
 
 function renderChart() {
+    var votesArray = [];
+    var timeshowingArray = [];
+    for (var i = 0; i < Products.prototype.allProducts.length; i++) {
+        votesArray.push(Products.prototype.allProducts[i].votes);
+        timeshowingArray.push(Products.prototype.allProducts[i].showingTimes);
+    }
+
     var ctx = document.getElementById('barChart').getContext('2d');
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: imagetNameArray(),
+            labels: imageNames,
             datasets: [{
-                label: 'number of Views',
-                data: numberOfViews(),
-                backgroundColor: getRandomColor(),
-            },
-            {
-                label: '# of votes',
-                data: numberOfVotes(),
-                backgroundColor: getRandomColor(),
-                borderWidth: 1,
-            },
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+                label: 'votes',
+                data: votesArray,
+            }, {
+                label: 'showingTimes',
+                data: timeshowingArray,
+
             }
+            ]
         }
-    });
+    })
 }
+// options: {
+//     scales: {
+//         yAxes: [{
+//             ticks: {
+//                 beginAtZero: true
+//             }
+//         }]
+
+
+
 
 
 
@@ -246,7 +280,10 @@ function renderChart() {
 
 
 
-
+function showfinalResult() {
+    showResults();
+    renderChart();
+}
 
 
 var resultlist = document.getElementById('Results-list');
@@ -266,8 +303,26 @@ function showResults(event) {
     }
 }
 
+// function showChart(){
+//     var ctx = document.getElementById('barChart').getContext('2d');
+//     var chart = new Chart(ctx, {
+//         type: 'bar',
 
-// var usedImage = {};
+//         // The data for our dataset
+//         data: {
+//             imageNames:["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ]; 
+
+//                 backgroundColor: 'rgb(255, 99, 132)',
+//                 borderColor: 'rgb(255, 99, 132)',
+//                 data: showingTimes
+//             }
+//         },
+
+//         // Configuration options go here
+//         // options: {}
+//     });
+// }
+// // var usedImage = {};
 // var usedImageCount = 0;
 // function displayimage(){
 //     var num = Math.floor(Math.random() * (imageName.length));
@@ -300,5 +355,4 @@ function showResults(event) {
 
 //     // Configuration options go here
 //     // options: {}
-// });
-
+// }); 
