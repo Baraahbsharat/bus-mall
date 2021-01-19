@@ -15,10 +15,6 @@ var showResultButton = document.getElementById('FinalResultButton');
 var roundsForm = document.getElementById('maxrounds');
 var imageNames = [];
 
-// var imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ];
-// function removeDuplicate (data){
-
-// var buttonElement = document.getElementById('Results-list');
 
 
 
@@ -71,8 +67,7 @@ function renderThreeRandomImages() {
     do {
         leftImageIndex = generateRandomIndex();
     }
-    //  middleImageIndex = generateRandomIndex();
-    //  rightImageIndex = generateRandomIndex();
+    
     while (forbiddenImagesIndex.includes(leftImageIndex));
     previousLeftImageIndex = leftImageIndex;
     forbiddenImagesIndex.push(leftImageIndex);
@@ -91,10 +86,7 @@ function renderThreeRandomImages() {
 
     } while (forbiddenImagesIndex.includes(middleImageIndex));
     previousCenterImageIndex = middleImageIndex;
-    // forbiddenImagesIndex.push(middleImageIndex);
-
-    //  leftImageIndex = generateRandomIndex();
-    // } while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex || middleImageIndex === rightImageIndex);
+  
     console.log("left img", Products.prototype.allProducts[leftImageIndex]);
     leftImageElement.src = Products.prototype.allProducts[leftImageIndex].source;
 
@@ -104,62 +96,54 @@ function renderThreeRandomImages() {
     rightImageElement.src = Products.prototype.allProducts[rightImageIndex].source;
     Products.prototype.allProducts[rightImageIndex].showingTimes++;
 }
-// if (!$.inArray(value, imageNames)) imageNames.push(value);
-// }
-// removeDuplicate();
+
 
 
 renderThreeRandomImages();
 
-// imageNames.sort(randomize);
-// function randomize(){
-//     return 0.5 - Math.random();
-// }
 
 
 function handelUserClick(event) {
 
 
     if (userClickCounter < maxvotes) {
-        // console.log('click');
-        // console.log(event.target.id);
+      
         if (event.target.id === 'left-image') {
-            // Products.prototype.allProducts[leftImageIndex].showingTimes++;
+          
             userClickCounter++;
             console.log('vote property',  Products.prototype.allProducts[leftImageIndex] )
             Products.prototype.allProducts[leftImageIndex].votes++;
-            // removeDuplicate();
+        
             renderThreeRandomImages();
-            // console.log(event.target.id);
+          
 
         }
         else if (event.target.id === 'middle-image') {
             userClickCounter++;
             Products.prototype.allProducts[middleImageIndex].votes++;
-            // removeDuplicate();
+            
             renderThreeRandomImages();
-            // Products.prototype.allProducts[middleImageIndex].showingTimes++;
+           
 
             console.log(event.target.id);
         } else if (event.target.id === 'right-image') {
             userClickCounter++;
             Products.prototype.allProducts[rightImageIndex].votes++;
-            // removeDuplicate();
+           
             renderThreeRandomImages();
-            // Products.prototype.allProducts[rightImageIndex].showingTimes++;
+           
             console.log(event.target.id);
         }
     } else {
 
 
-        // showResults();
-        //  resultlist.appendChild(votesResults);
+       
 
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
         showResultButton.disabled = false;
         renderChart();
-        // showfinalResult();
+   
     }
 
 
@@ -172,29 +156,7 @@ function setMaxRounds(event) {
     maxvotes = parseInt(event.target.rounds.value);
 }
 
-// function imagetNameArray(){
-//     var imges = [];
-//     for (var i = 0; i < allProducts.length; i++){
-//         imges[i] = allProducts.name;
-//     }
-//     //  imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum"];
-//    return imges;
-// }
 
-// function numberOfViews(){
-//     var imges = [];
-//     for (var i = 0; i < allProducts.length; i++){
-//         imges[i] = allProducts.showingTimes;
-//     }
-//    return imges;
-// }
-// function numberOfVotes(){
-//     var imges = [];
-//     for (var i = 0; i < allProducts.length; i++){
-//         imges[i] = allProducts.votes;
-//     }
-//    return imges;
-// }
 function showfinalResult() {
     showResults();
     renderChart();
@@ -224,30 +186,6 @@ function renderChart() {
         }
     })
 }
-// options: {
-//     scales: {
-//         yAxes: [{
-//             ticks: {
-//                 beginAtZero: true
-//             }
-//         }]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// renderThreeRandomImages();
-// handelUserClick();
-// renderThreeRandomImages();
 
 
 
@@ -270,15 +208,18 @@ function renderChart() {
 
 
 
-// roundsForm.addEventListener('submit',submitter);
 
-// function submitter (event){
-//     event.preventDefault();
-//     //  maxvotes = parseInt(event.target.maxvotes.value)
 
-//     maxvotes = parseInt(event.target.rounds.value)
 
-// }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -303,56 +244,3 @@ function showResults(event) {
     }
 }
 
-// function showChart(){
-//     var ctx = document.getElementById('barChart').getContext('2d');
-//     var chart = new Chart(ctx, {
-//         type: 'bar',
-
-//         // The data for our dataset
-//         data: {
-//             imageNames:["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ]; 
-
-//                 backgroundColor: 'rgb(255, 99, 132)',
-//                 borderColor: 'rgb(255, 99, 132)',
-//                 data: showingTimes
-//             }
-//         },
-
-//         // Configuration options go here
-//         // options: {}
-//     });
-// }
-// // var usedImage = {};
-// var usedImageCount = 0;
-// function displayimage(){
-//     var num = Math.floor(Math.random() * (imageName.length));
-//     if (!usedImage[num]){
-//         document.
-//     }
-// }
-
-// var imageNames = ["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ];
-// function removeDuplicate (data){
-
-//     preventDefault();
-//     return data.filter((value, index) => data.indexOf(value) === index);
-
-// }
-// var ctx = document.getElementById('barChart').getContext('2d');
-// var chart = new Chart(ctx, {
-//     type: 'bar',
-
-//     // The data for our dataset
-//     data: {
-//         imageNames:["bag", "banana", "bathroom", "boots", "breakfast", "chair'", "cthulhu", "dog-duck", "dragon", "pen", "pet-sweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "water-can", "wine-glass", "bubblegum" ]; 
-
-//             backgroundColor: 'rgb(255, 99, 132)',
-//             borderColor: 'rgb(255, 99, 132)',
-//             data: votes 
-//             data: showingTimes
-//         }
-//     },
-
-//     // Configuration options go here
-//     // options: {}
-// }); 
