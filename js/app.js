@@ -119,7 +119,7 @@ function handelUserClick(event) {
 
         console.log(event.target.id);
         imagediv.removeEventListener('click', handelUserClick);
-             
+
     }
 
 
@@ -129,9 +129,9 @@ function handelUserClick(event) {
 
 
 var roundsForm = document.getElementById('roundsForm');
-roundsForm.addEventListener('submit',submitter);
+roundsForm.addEventListener('submit', submitter);
 
-function submitter (event){
+function submitter(event) {
     event.preventDefault();
     //  maxvotes = parseInt(event.target.maxvotes.value)
 
@@ -150,16 +150,25 @@ function generateRandomIndex() {
 var resultlist = document.getElementById('Results-list');
 
 function showResults(event) {
-  event.preventDefault();
 
     var votesResults;
 
     for (var i = 0; i < Products.prototype.allProducts.length; i++) {
+        console.log(Products.prototype.allProducts[i]);
         votesResults = document.createElement('li');
-        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Products.prototype.allProducts[i].votes * 100 / Products.prototype.allProducts[i].showingTimes) + '%';
-
-
-        resultlist.appendChild(votesResults);
+        if (Products.prototype.allProducts[i].showingTimes != 0){
+        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
+       else {
+        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
+       }
         
+    //  if(Products.prototype.allProducts[i].showingTimes = 0){
+    //     Products.prototype.allProducts[i].showingTimes = 1
+    //  }
+    //  else {
+
+    //  }
+        resultlist.appendChild(votesResults);
+
     }
 }
