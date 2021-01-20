@@ -114,7 +114,7 @@ function handelUserClick(event) {
     } else {
 
 
-        // showResults();
+        showResults();
         //  resultlist.appendChild(votesResults);
 
         console.log(event.target.id);
