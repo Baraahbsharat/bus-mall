@@ -187,9 +187,17 @@ function renderChart() {
             labels: imageNames,
             datasets: [{
                 label: 'votes',
+                backgroundColor: "rgba(159,170,174,0.8)",
+                borderWidth: 1,
+                hoverBackgroundColor: "rgba(232,105,90,0.8)",
+                hoverBorderColor: "orange",
                 data: votesArray,
             }, {
                 label: 'showingTimes',
+                backgroundColor: "rgba(124,100,123,0.6)",
+                borderWidth: 1,
+                hoverBackgroundColor: "rgba(250,99,49,0.8)",
+                hoverBorderColor: "blue",
                 data: timeshowingArray,
 
             }
@@ -276,32 +284,34 @@ function showResults(event) {
  main
 
     var votesResults;
+    if (Products.prototype.allProducts[i].showingTimes != 0){
+
+        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
+       else {
+        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
+       }
+        
+
+
+
 
     for (var i = 0; i < Products.prototype.allProducts.length; i++) {
         console.log(Products.prototype.allProducts[i]);
         votesResults = document.createElement('li');
         if (Products.prototype.allProducts[i].showingTimes != 0){
 
+
             votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
            else {
             votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
            }
             
-  
-=======
-        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
-       else {
-        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
-       }
+ 
         
-    //  if(Products.prototype.allProducts[i].showingTimes = 0){
-    //     Products.prototype.allProducts[i].showingTimes = 1
-    //  }
-    //  else {
-
-    //  }
+    
+   
         resultlist.appendChild(votesResults);
 
     }
-}
+
 
