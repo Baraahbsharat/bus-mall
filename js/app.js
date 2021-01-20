@@ -1,4 +1,5 @@
 'use strict'
+
 var leftImageElement = document.getElementById('left-image');
 var middleImageElement = document.getElementById('middle-image');
 var rightImageElement = document.getElementById('right-image');
@@ -137,6 +138,14 @@ function handelUserClick(event) {
     } else {
 
 
+lab11-busmall
+        showResults();
+        //  resultlist.appendChild(votesResults);
+
+        console.log(event.target.id);
+        imagediv.removeEventListener('click', handelUserClick);
+
+=======
        
 
         console.log(event.target.id);
@@ -144,9 +153,10 @@ function handelUserClick(event) {
         showResultButton.disabled = false;
         renderChart();
    
+main
     }
 
-
+    storeProducts();
 
 }
 
@@ -160,6 +170,7 @@ function setMaxRounds(event) {
 function showfinalResult() {
     showResults();
     renderChart();
+    // storeProducts();
 }
 function renderChart() {
     var votesArray = [];
@@ -187,6 +198,31 @@ function renderChart() {
     })
 }
 
+// function renderAllProductArray(){
+
+// }
+
+function storeProducts (){
+    var myProducts = JSON.stringify(Products.prototype.allProducts );
+    localStorage.setItem('myProducts', myProducts);
+    }
+    function getData(){
+    var list = localStorage.getItem('myProducts');
+    // var jlist = JSON.parse(list);
+    if (list ){
+        Products.prototype.allProducts = JSON.parse(list);
+        // renderThreeRandomImages(); 
+        // showfinalResult();
+        renderChart();
+         }
+   
+    }
+    getData();
+    
+
+
+
+   
 
 
 
@@ -213,12 +249,16 @@ function renderChart() {
 
 
 
+ lab11-busmall
+var roundsForm = document.getElementById('roundsForm');
+roundsForm.addEventListener('submit', submitter);
 
+function submitter(event) {
+    event.preventDefault();
+    //  maxvotes = parseInt(event.target.maxvotes.value)
+=======
 
-
-
-
-
+ main
 
 
 
@@ -230,20 +270,36 @@ function renderChart() {
 var resultlist = document.getElementById('Results-list');
 
 function showResults(event) {
+ lab11-busmall
+=======
     event.preventDefault();
+ main
 
     var votesResults;
 
     for (var i = 0; i < Products.prototype.allProducts.length; i++) {
+        console.log(Products.prototype.allProducts[i]);
         votesResults = document.createElement('li');
         if (Products.prototype.allProducts[i].showingTimes != 0){
+
             votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
            else {
             votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
            }
             
   
+=======
+        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
+       else {
+        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
+       }
+        
+    //  if(Products.prototype.allProducts[i].showingTimes = 0){
+    //     Products.prototype.allProducts[i].showingTimes = 1
+    //  }
+    //  else {
 
+    //  }
         resultlist.appendChild(votesResults);
 
     }
