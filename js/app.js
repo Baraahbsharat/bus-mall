@@ -1,4 +1,5 @@
 'use strict'
+// Global variables 
 
 var leftImageElement = document.getElementById('left-image');
 var middleImageElement = document.getElementById('middle-image');
@@ -17,7 +18,7 @@ var roundsForm = document.getElementById('maxrounds');
 var imageNames = [];
 
 
-
+// Creare a constructor 
 
 function Products(name, source) {
     this.name = name;
@@ -51,16 +52,20 @@ var image18 = new Products('water-can', '../assets/img/water-can.jpg');
 var image19 = new Products('wine-glass', '../assets/img/wine-glass.jpg');
 var image20 = new Products('bubblegum', '../assets/img/bubblegum.jpg');
 
+
+// Create an algorithm that will randomly generate three images 
 var imageNames;
 function generateRandomIndex() {
     return Math.floor(Math.random() * (Products.prototype.allProducts.length));
 }
 
+// Attach eventlistener to HTML section where the element displayed
 divimages.addEventListener('click', handelUserClick);
 
 showResultButton.addEventListener('click', showResults);
 roundsForm.addEventListener('submit', setMaxRounds);
 
+//  make sure that we have three different image each time
 var forbiddenImagesIndex = [];
 function renderThreeRandomImages() {
     forbiddenImagesIndex = [previousCenterImageIndex, previousLeftImageIndex, previousRightImageIndex];
@@ -102,7 +107,7 @@ function renderThreeRandomImages() {
 
 renderThreeRandomImages();
 
-
+// increment the voting numbers at each time
 
 function handelUserClick(event) {
 
@@ -151,18 +156,20 @@ function handelUserClick(event) {
 
 }
 
-
+//  add a function to enable the user to choose the number of rounds
 function setMaxRounds(event) {
-    // event.preventDefault();
+    event.preventDefault();
     maxvotes = parseInt(event.target.rounds.value);
 }
 
-
+//  create a function to call the final results
 function showfinalResult() {
     showResults();
     renderChart();
     // storeProducts();
 }
+
+//  create a chart
 function renderChart() {
     var votesArray = [];
     var timeshowingArray = [];
@@ -178,9 +185,13 @@ function renderChart() {
             labels: imageNames,
             datasets: [{
                 label: 'votes',
+                backgroundColor: 'rgb(219, 112, 147)',
+                borderColor: 'rgb(0, 0, 0)',
                 data: votesArray,
             }, {
                 label: 'showingTimes',
+                backgroundColor: 'rgb(255, 235, 205)',
+                borderColor: 'rgb(0, 0, 0)',
                 data: timeshowingArray,
 
             }
@@ -189,21 +200,18 @@ function renderChart() {
     })
 }
 
-// function renderAllProductArray(){
 
-// }
-
+//  create a local storage and add the values to the image array 
 function storeProducts (){
     var myProducts = JSON.stringify(Products.prototype.allProducts );
     localStorage.setItem('myProducts', myProducts);
     }
     function getData(){
     var list = localStorage.getItem('myProducts');
-    // var jlist = JSON.parse(list);
+    
     if (list ){
         Products.prototype.allProducts = JSON.parse(list);
-        // renderThreeRandomImages(); 
-        // showfinalResult();
+        
         renderChart();
          }
    
@@ -247,7 +255,7 @@ function storeProducts (){
 
 
 
-
+//  create a list for the result values 
 
 var resultlist = document.getElementById('Results-list');
 

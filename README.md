@@ -1,1 +1,2 @@
 # bus-mall
+This application allow the user to vote for his or her favourite product out of three displayed in front of him , the user can choose the number of round at which these three images will display, and the result will be shown in tow shapes, as a list and as a chart, also the chooses will be store and the new votes will be added to the previous one. 
