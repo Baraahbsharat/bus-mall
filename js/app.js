@@ -138,14 +138,6 @@ function handelUserClick(event) {
     } else {
 
 
-lab11-busmall
-        showResults();
-        //  resultlist.appendChild(votesResults);
-
-        console.log(event.target.id);
-        imagediv.removeEventListener('click', handelUserClick);
-
-=======
        
 
         console.log(event.target.id);
@@ -153,7 +145,6 @@ lab11-busmall
         showResultButton.disabled = false;
         renderChart();
    
-main
     }
 
     storeProducts();
@@ -162,7 +153,7 @@ main
 
 
 function setMaxRounds(event) {
-    event.preventDefault();
+    // event.preventDefault();
     maxvotes = parseInt(event.target.rounds.value);
 }
 
@@ -187,17 +178,9 @@ function renderChart() {
             labels: imageNames,
             datasets: [{
                 label: 'votes',
-                backgroundColor: "rgba(159,170,174,0.8)",
-                borderWidth: 1,
-                hoverBackgroundColor: "rgba(232,105,90,0.8)",
-                hoverBorderColor: "orange",
                 data: votesArray,
             }, {
                 label: 'showingTimes',
-                backgroundColor: "rgba(124,100,123,0.6)",
-                borderWidth: 1,
-                hoverBackgroundColor: "rgba(250,99,49,0.8)",
-                hoverBorderColor: "blue",
                 data: timeshowingArray,
 
             }
@@ -257,16 +240,7 @@ function storeProducts (){
 
 
 
- lab11-busmall
-var roundsForm = document.getElementById('roundsForm');
-roundsForm.addEventListener('submit', submitter);
 
-function submitter(event) {
-    event.preventDefault();
-    //  maxvotes = parseInt(event.target.maxvotes.value)
-=======
-
- main
 
 
 
@@ -278,40 +252,16 @@ function submitter(event) {
 var resultlist = document.getElementById('Results-list');
 
 function showResults(event) {
- lab11-busmall
-=======
     event.preventDefault();
- main
 
     var votesResults;
-    if (Products.prototype.allProducts[i].showingTimes != 0){
-
-        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
-       else {
-        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
-       }
-        
-
-
-
 
     for (var i = 0; i < Products.prototype.allProducts.length; i++) {
-        console.log(Products.prototype.allProducts[i]);
         votesResults = document.createElement('li');
-        if (Products.prototype.allProducts[i].showingTimes != 0){
+        votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Products.prototype.allProducts[i].votes * 100 / Products.prototype.allProducts[i].showingTimes) + '%';
 
 
-            votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + (Number(Products.prototype.allProducts[i].votes) * 100 / Number(Products.prototype.allProducts[i].showingTimes)) + '%';}
-           else {
-            votesResults.textContent = Products.prototype.allProducts[i].name + ' had ' + Products.prototype.allProducts[i].votes + ' votes ' + ' and was seen ' + Products.prototype.allProducts[i].showingTimes + 'times.' + 'The percentage of selecting this product is : ' + 0 + '%';
-           }
-            
- 
-        
-    
-   
         resultlist.appendChild(votesResults);
 
     }
-
-
+}
